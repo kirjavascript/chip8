@@ -19,11 +19,9 @@ font=[
 0xF0,0x80,0xF0,0x80,0x80
 ]
 
-// TODO: querystring for ROM
+// TODO: location.search.slice(1) for ROM / convertToURL.js
 
-a // canvas element
-b // body
-c // canvas context
+p = document.querySelector('pre');
 
 // memory
 
@@ -64,6 +62,9 @@ ram = ram.slice(0, 4096) // truncate memory again (probably not needed)
                 PC = stack[--SP]
             }
             break;
+        case 0x1000: // JUMP
+            PC = opcode & 0xFFF
+            break;
         case 0xA000: // ADDR
             I = opcode & 0xFFF
             break;
@@ -71,7 +72,9 @@ ram = ram.slice(0, 4096) // truncate memory again (probably not needed)
             throw new Error(`unimplemented opcode: 0x${opcode.toString(16)}`)
     }
 
-    // TODO: copy gfx to canvas
+    // copy gfx to page
+
+    p.innerText = gfx.map(d=>d?' ':'█').join``
 
     // handle timers
 
