@@ -1,9 +1,11 @@
 rom=[106,2,107,12,108,63,109,12,162,234,218,182,220,214,110,0,34,212,102,3,104,2,96,96,240,21,240,7,48,0,18,26,199,23,119,8,105,255,162,240,214,113,162,234,218,182,220,214,96,1,224,161,123,254,96,4,224,161,123,2,96,31,139,2,218,182,141,112,192,10,125,254,64,0,125,2,96,0,96,31,141,2,220,214,162,240,214,113,134,132,135,148,96,63,134,2,97,31,135,18,70,2,18,120,70,63,18,130,71,31,105,255,71,0,105,1,214,113,18,42,104,2,99,1,128,112,128,181,18,138,104,254,99,10,128,112,128,213,63,1,18,162,97,2,128,21,63,1,18,186,128,21,63,1,18,200,128,21,63,1,18,194,96,32,240,24,34,212,142,52,34,212,102,62,51,1,102,3,104,254,51,1,104,2,18,22,121,255,73,254,105,255,18,200,121,1,73,2,105,1,96,4,240,24,118,1,70,64,118,254,18,108,162,242,254,51,242,101,241,41,100,20,101,0,212,85,116,21,242,41,212,85,0,238,128,128,128,128,128,128,128,0,0,0,0,0]
 // console.log(btoa(String.fromCharCode(...rom)))
 // console.log([...atob(location.search.slice(1))].map(d => d.charCodeAt(0)))
+// romToURL.js
 //
 // closure -> beautify  for ideas
 // regpack for packing
+// set UTF-8 in kirjava.xyz
 //
 // (new TextEncoder).encode('abcd') (RIP edge)
 
@@ -59,7 +61,13 @@ ram = ram.slice(0, 4096)
 // handle input
 
 keymap=[...'1234qwerasdfzxcv']
-onkeydown=e=>keys[keymap.indexOf(e.key)]=1
+onkeydown=e=>{
+    index=keymap.indexOf(e.key)
+    keys[index]=1
+    if (pause) {
+        V[x] = index
+    }
+}
 onkeyup=e=>keys[keymap.indexOf(e.key)]=0
 
 ~function loop() {
@@ -218,6 +226,45 @@ onkeyup=e=>keys[keymap.indexOf(e.key)]=0
                         PC += 2;
                     }
             }
+            break;
+        case 0xF000:
+            switch (kk) {
+                case 0x0007:
+                    V[x] = DT;
+                    break;
+                case 0x000A:
+                    pause=1
+                    return;
+                case 0x0015:
+                    DT = V[x]
+                    break;
+                case 0x0018:
+                    ST = V[x]
+                    break;
+                case 0x001E:
+                    I += V[x]
+                    break;
+                case 0x0029:
+                    I = V[x] * 5
+                    break;
+                case 0x0033:
+                    ram[I] = parseInt(V[x] / 100)
+                    ram[I+1] = parseInt(V[x] % 100 / 10)
+                    ram[I+ 2] = V[x] % 10
+                    break;
+                case 0x0055:
+                    for (i = 0; i <= x; i++) {
+                        ram[I+ i] = V[i];
+                    }
+                    break;
+                case 0x0065:
+                    for (i = 0; i <= x; i++) {
+                        V[i] = ram[I + i];
+                    }
+                    break;
+
+            }
+
             break;
         default:
             throw new Error(`unimplemented opcode: 0x${opcode.toString(16)}`)
