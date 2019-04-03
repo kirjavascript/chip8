@@ -56,9 +56,16 @@ ram.splice(0x200, 0, ...rom);
 
 ram = ram.slice(0, 4096)
 
+// handle input
+
+keymap=[...'1234qwerasdfzxcv']
+onkeydown=e=>keys[keymap.indexOf(e.key)]=1
+onkeyup=e=>keys[keymap.indexOf(e.key)]=0
+
 ~function loop() {
     requestAnimationFrame(loop)
     if (pause) return; // TODO
+    console.log(keys);
 
     // get opcode (2 bytes)
     opcode = ram[PC] << 8 | ram[PC + 1]
