@@ -70,8 +70,7 @@ onkeydown=e=>{
 }
 onkeyup=e=>keys[keymap.indexOf(e.key)]=0
 
-~function loop() {
-    requestAnimationFrame(loop)
+function cycle() {
     if (pause) return; // TODO
 
     // get opcode (2 bytes)
@@ -290,4 +289,9 @@ onkeyup=e=>keys[keymap.indexOf(e.key)]=0
         if (o) o.stop(),o=0
     }
 
+}
+
+~function loop() {
+    requestAnimationFrame(loop)
+    for(i=0;i< 10;i++) cycle()
 } ()
