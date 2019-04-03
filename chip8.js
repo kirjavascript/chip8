@@ -65,7 +65,6 @@ onkeyup=e=>keys[keymap.indexOf(e.key)]=0
 ~function loop() {
     requestAnimationFrame(loop)
     if (pause) return; // TODO
-    console.log(keys);
 
     // get opcode (2 bytes)
     opcode = ram[PC] << 8 | ram[PC + 1]
@@ -207,12 +206,25 @@ onkeyup=e=>keys[keymap.indexOf(e.key)]=0
             }
 
             break;
+        case 0xE000:
+            switch (kk) {
+                case 0x009E:
+                    if (keys[V[x]]) {
+                        PC += 2;
+                    }
+                    break;
+                case 0x00A1:
+                    if (!keys[V[x]]) {
+                        PC += 2;
+                    }
+            }
+            break;
         default:
             throw new Error(`unimplemented opcode: 0x${opcode.toString(16)}`)
     }
 
     // TODO: change map with for of
-    c=a=>a+a&&[a.splice(0,64).map(d=>d?' ':'█').join``,...c(a)]
+    c=a=>a+a&&[a.splice(0,64).map(d=>d?' ':'&block;').join``,...c(a)]
     document.body.innerHTML='<pre>'+c([...gfx]).join`\n`
 
     // handle timers
