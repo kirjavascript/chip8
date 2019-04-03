@@ -1,6 +1,11 @@
 rom=[106,2,107,12,108,63,109,12,162,234,218,182,220,214,110,0,34,212,102,3,104,2,96,96,240,21,240,7,48,0,18,26,199,23,119,8,105,255,162,240,214,113,162,234,218,182,220,214,96,1,224,161,123,254,96,4,224,161,123,2,96,31,139,2,218,182,141,112,192,10,125,254,64,0,125,2,96,0,96,31,141,2,220,214,162,240,214,113,134,132,135,148,96,63,134,2,97,31,135,18,70,2,18,120,70,63,18,130,71,31,105,255,71,0,105,1,214,113,18,42,104,2,99,1,128,112,128,181,18,138,104,254,99,10,128,112,128,213,63,1,18,162,97,2,128,21,63,1,18,186,128,21,63,1,18,200,128,21,63,1,18,194,96,32,240,24,34,212,142,52,34,212,102,62,51,1,102,3,104,254,51,1,104,2,18,22,121,255,73,254,105,255,18,200,121,1,73,2,105,1,96,4,240,24,118,1,70,64,118,254,18,108,162,242,254,51,242,101,241,41,100,20,101,0,212,85,116,21,242,41,212,85,0,238,128,128,128,128,128,128,128,0,0,0,0,0]
 // console.log(btoa(String.fromCharCode(...rom)))
 // console.log([...atob(location.search.slice(1))].map(d => d.charCodeAt(0)))
+//
+// closure -> beautify  for ideas
+// regpack for packing
+//
+// (new TextEncoder).encode('abcd') (RIP edge)
 
 font=[ // TODO: String.fromCharCode(...
 0xF0,0x90,0x90,0x90,0xF0,
@@ -21,11 +26,9 @@ font=[ // TODO: String.fromCharCode(...
 0xF0,0x80,0xF0,0x80,0x80
 ]
 
-// TODO: location.search.slice(1) for ROM / convertToURL.js
-
-p = document.querySelector('pre');
-
 // memory
+
+// TODO: slice from RAM to create other arrays
 
 ram=[...Array(4096)].fill(0)
 V=[...Array(16)].fill(0) // 8 bit
@@ -35,6 +38,7 @@ ST=0 // sound timer
 PC=0x200 // 16 bit
 SP=0 // 8 bit
 stack=[...Array(16)].fill(0) // 16 bit
+pause=0
 
 o=0 // sound
 gfx=[...Array(64*32)].fill(0) // graphics
@@ -54,14 +58,15 @@ ram = ram.slice(0, 4096)
 
 ~function loop() {
     requestAnimationFrame(loop)
+    if (pause) return; // TODO
 
     // get opcode (2 bytes)
     opcode = ram[PC] << 8 | ram[PC + 1]
     x = (opcode & 0x0F00) >> 8 // TODO: divide
     y = (opcode & 0x00F0) >> 4
     z = opcode & 0x000F
-    kk = opcode && 0x00FF
-    kkk = opcode && 0x0FFF
+    kk = opcode & 0x00FF
+    kkk = opcode & 0x0FFF
 
     // inc program counter
     PC += 2
@@ -130,7 +135,7 @@ ram = ram.slice(0, 4096)
                     break;
                 case 0x0006:
                     V[0xF] = V[x] & 0x1;
-                    V[x] >>= 1; // TODO: divide by 2?
+                    V[x] >>= 1;
                     break;
                 case 0x0007:
                     V[0xF] = +(V[y] > V[x]);
@@ -141,9 +146,8 @@ ram = ram.slice(0, 4096)
                     break;
                 case 0x000E:
                     V[0xF] = +(V[x] & 0x80);
-                    V[x] <<= 1; // TODO: multiply by 2?
+                    V[x] *= 2;
                     V[x] %= 256;
-                    break;
             }
             break;
         case 0x9000:
@@ -160,13 +164,49 @@ ram = ram.slice(0, 4096)
         case 0xC000:
             V[x] = (0|Math.random() * 0xFF) & kk
             break;
+        case 0xD000:
+            V[0xF] = 0;
+
+            for (i = 0; i < z; i++) {
+                sprite = ram[I + i];
+                for (j = 0; j < 8; j++) {
+                    // TODO: optimize
+                    if ((sprite & 0x80) > 0) {
+                        x0 = V[x] + j
+                        y0 = V[y] + i
+
+                        if (x0 < 0) {
+                            x0 += 64;
+                        } else {
+                            x0 %= 64
+                        }
+
+                        if (y0 < 0) {
+                            y0 += 32;
+                        } else {
+                            y0 %= 32
+                        }
+
+                        loc = x0 + (y0 * 64);
+
+                        gfx[loc] ^= 1;
+
+                        if (!gfx[loc]) {
+                            V[0xF] = 1
+                        }
+                    }
+                    sprite <<= 1;
+                }
+            }
+
+            break;
         default:
             throw new Error(`unimplemented opcode: 0x${opcode.toString(16)}`)
     }
 
-    // copy gfx to page TODO: chunk: aem1k/world trick
-
-    p.innerText = gfx.map(d=>d?' ':'█').join``
+    // TODO: change map with for of
+    c=a=>a+a&&[a.splice(0,64).map(d=>d?' ':'█').join``,...c(a)]
+    document.body.innerHTML='<pre>'+c([...gfx]).join`\n`
 
     // handle timers
 
