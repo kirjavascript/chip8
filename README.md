@@ -131,5 +131,3 @@ some examples;
 #### [X-Mirror](http://chip8.kirjava.xyz/?Zh5nD2gfaQ9qHmsQbB9tEKJoIi5gAuChIkRgCOChIjhgBOChIlBgBuChIlwSFNZx2JHasdzRAO53/3n/ewF9ASIuAO53AXkBe/99/yIuAO52/3gBev98ASIuAO52AXj/egF8/yIuAO6AAA==)
 #### [Zero Demo «zeroZshadow, 2007»](http://chip8.kirjava.xyz/?YAplBWYKZw9oFGEBYgFjAWQBYAqieNBWcAqiftBmcAqihNB2cAqiitCGagP6FWAKonjQVkUUYf9FAWEBhRTQVnAKon7QZkYUYv9GAWIBhiTQZnAKooTQdkcUY/9HAWMBhzTQdnAKoorQhkgUZP9IAWQBiETQhhIq/wMMMMD//8DA/MD/8MzM8MzDPMPDw8M8)
 #### [ZeroPong «zeroZshadow, 2007»](http://chip8.kirjava.xyz/?EnJgA/AVorBgCuCeEhbXhngB14YSImAL4J4SIteGeP/XhmAI4J4SMNmmegHZphI8YALgnhI82aZ6/9mmorbTQYNUhGRDABJ6Qz8SekQAZgFEH2b/00E/ARJqQwJlAUM+Zf/TQWDI8BgSQGAP4KESchICZwJoCmk+agpjIGQQxQFFABKIZf8SimUBxgFGABKUZv8SlmYBAOCisNeG2aaittNBYA/goRKqEqLgnhICEqqAgICAgICAAA==)
-
-ROMs originally taken from [here](https://github.com/dmatlack/chip8/tree/master/)

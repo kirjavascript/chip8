@@ -3,6 +3,8 @@
 // regpack for packing
 // add to main kirjava.xyz page when golf'd
 // steal more things from http://ix.io/1Fgq
+// TODO: step to fix bugs
+// TODO: chip8.js
 //
 // (new TextEncoder).encode('abcd') (RIP edge)
 //
