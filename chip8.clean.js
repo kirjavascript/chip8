@@ -1,22 +1,29 @@
-// CHIP-8 emulator in XXX bytes
-// closure -> beautify  for ideas
-// regpack for packing
-// add to main kirjava.xyz page when golf'd
-// steal more things from http://ix.io/1Fgq
-//
-// (new TextEncoder).encode('abcd') (RIP edge)
-//
-// TODO: change map with for of
+// load from URL
 rom=[...atob(location.search.slice(1))].map(d => d.charCodeAt(0))
 
-font=[240,144,144,144,240,32,96,32,32,112,240,16,240,128,240,240,16,240,16,240,144,144,240,16,16,240,128,240,16,240,240,128,240,144,240,240,16,32,64,64,240,144,240,144,240,240,144,240,16,240,240,144,240,144,144,224,144,224,144,224,240,128,128,128,240,224,144,144,144,224,240,128,240,128,240,240,128,240,128,128]
+font=[
+0xF0,0x90,0x90,0x90,0xF0,
+0x20,0x60,0x20,0x20,0x70,
+0xF0,0x10,0xF0,0x80,0xF0,
+0xF0,0x10,0xF0,0x10,0xF0,
+0x90,0x90,0xF0,0x10,0x10,
+0xF0,0x80,0xF0,0x10,0xF0,
+0xF0,0x80,0xF0,0x90,0xF0,
+0xF0,0x10,0x20,0x40,0x40,
+0xF0,0x90,0xF0,0x90,0xF0,
+0xF0,0x90,0xF0,0x10,0xF0,
+0xF0,0x90,0xF0,0x90,0x90,
+0xE0,0x90,0xE0,0x90,0xE0,
+0xF0,0x80,0x80,0x80,0xF0,
+0xE0,0x90,0x90,0x90,0xE0,
+0xF0,0x80,0xF0,0x80,0xF0,
+0xF0,0x80,0xF0,0x80,0x80
+]
 
 // memory
 
-// TODO: slice from RAM to create other arrays
-
 ram=[...Array(4096)].fill(0)
-V=ram.slice(0, 16) // 8 bit
+V=[...Array(16)].fill(0) // 8 bit
 I=0 // 12bit used
 DT=0 // delay timer
 ST=0 // sound timer
@@ -55,11 +62,11 @@ onkeyup=e=>{
 onkeydown=e=>keys[keymap.indexOf(e.key)]=1
 
 function cycle() {
-    if (pause) return; // TODO
+    if (pause) return;
 
     // get opcode (2 bytes)
     opcode = ram[PC] << 8 | ram[PC + 1]
-    x = (opcode & 0x0F00) >> 8 // TODO: divide
+    x = (opcode & 0x0F00) >> 8
     y = (opcode & 0x00F0) >> 4
     z = opcode & 0x000F
     kk = opcode & 0x00FF
@@ -166,7 +173,7 @@ function cycle() {
             for (i = 0, py = V[y] % 32; i < z; i++, py = (py+1) % 32) {
                 for (j = 0, px = V[x] % 64; j < 8; j++, px = (px+1) % 64) {
                     loc = px + (py * 64)
-                    gfx[loc] ^= ram[I+i] >> 7-j & 1
+                    gfx[loc] ^= ram[I+i] & 1<< 7-j;
                     !gfx[loc]&&(V[0xF]=1)
                 }
             }
@@ -234,7 +241,8 @@ function cycle() {
     requestAnimationFrame(loop)
     for(i=0;i< 10;i++) cycle()
 
-    // &block;
+    // render
+
     c=a=>a+a&&[a.splice(0,64).map(d=>d?'  ':'██').join``,...c(a)]
     document.body.innerHTML='<pre>'+c([...gfx]).join`\n`
 
@@ -253,7 +261,3 @@ function cycle() {
         if (o) o.stop(),o=0
     }
 } ()
-
-// TODO: move counter to a=s=b=[]
-// Object.getOwnPropertyNames(window).map((p,i)=>window[String.fromCharCode(i+248)]=window[p])
-// document.body.appendChild(document.createElement('pre')).textContent = Object.getOwnPropertyNames(window).map((p,i)=>JSON.stringify([p, String.fromCharCode(i+248)])).join`\n`

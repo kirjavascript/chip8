@@ -6,11 +6,20 @@ status: pre golfing
 
 ### controls
 
-the CHIP-8 has a weird 16 key input system that is mapped to the keys 1234QWERASDFZXCV here
+the CHIP-8 has a weird 16 key input system that are mapped to the keys
+
+```
+1234
+QWER
+ASDF
+ZXCV
+```
+
+the ROMs tend to just use random keys
 
 ### ROMs
 
-to save space, ROMs are specified by passing a base64'd copy of the ROM in the URL querystring.  
+to save space, ROMs are specified by passing a base64'd copy of the ROM in the URL querystring  
 you can use [node romToUrl.js romname.ch8](romToURL.js) to generate these URLs from your own ROMs
 
 some examples;
