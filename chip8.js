@@ -61,15 +61,15 @@ ram = ram.slice(0, 4096)
 // handle input
 
 keymap=[...'1234qwerasdfzxcv']
-onkeydown=e=>{
+onkeyup=e=>{
     index=keymap.indexOf(e.key)
-    keys[index]=1
+    keys[index]=0
     if (pause) {
         V[x] = index
         pause=0
     }
 }
-onkeyup=e=>keys[keymap.indexOf(e.key)]=0
+onkeydown=e=>keys[keymap.indexOf(e.key)]=1
 
 function cycle() {
     if (pause) return; // TODO
@@ -271,8 +271,15 @@ function cycle() {
     }
 
     // TODO: change map with for of
-    c=a=>a+a&&[a.splice(0,64).map(d=>d?' ':'&block;').join``,...c(a)]
+    // &block;
+    c=a=>a+a&&[a.splice(0,64).map(d=>d?'  ':'██').join``,...c(a)]
     document.body.innerHTML='<pre>'+c([...gfx]).join`\n`
+
+}
+
+~function loop() {
+    requestAnimationFrame(loop)
+    for(i=0;i< 12;i++) cycle()
 
     // handle timers
 
@@ -289,10 +296,4 @@ function cycle() {
     } else {
         if (o) o.stop(),o=0
     }
-
-}
-
-~function loop() {
-    requestAnimationFrame(loop)
-    for(i=0;i< 10;i++) cycle()
 } ()
