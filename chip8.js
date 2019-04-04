@@ -1,10 +1,10 @@
-rom=[...atob(location.search.slice(1))].map(d => d.charCodeAt(0))
-
 // closure -> beautify  for ideas
 // regpack for packing
 // set UTF-8 in kirjava.xyz
+// add to main kirjava.xyz page when golf'd
 //
 // (new TextEncoder).encode('abcd') (RIP edge)
+rom=[...atob(location.search.slice(1))].map(d => d.charCodeAt(0))
 
 font=[ // TODO: String.fromCharCode(...
 0xF0,0x90,0x90,0x90,0xF0,
