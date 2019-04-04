@@ -4,6 +4,8 @@
 // add to main kirjava.xyz page when golf'd
 //
 // (new TextEncoder).encode('abcd') (RIP edge)
+//
+// TODO: change map with for of
 rom=[...atob(location.search.slice(1))].map(d => d.charCodeAt(0))
 
 font=[ // TODO: String.fromCharCode(...
@@ -274,7 +276,6 @@ function cycle() {
     requestAnimationFrame(loop)
     for(i=0;i< 10;i++) cycle()
 
-    // TODO: change map with for of
     // &block;
     c=a=>a+a&&[a.splice(0,64).map(d=>d?'  ':'██').join``,...c(a)]
     document.body.innerHTML='<pre>'+c([...gfx]).join`\n`
