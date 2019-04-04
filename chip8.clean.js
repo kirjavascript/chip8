@@ -170,11 +170,34 @@ function cycle() {
             break;
         case 0xD000:
             V[0xF] = 0;
-            for (i = 0, py = V[y] % 32; i < z; i++, py = (py+1) % 32) {
-                for (j = 0, px = V[x] % 64; j < 8; j++, px = (px+1) % 64) {
-                    loc = px + (py * 64)
-                    gfx[loc] ^= ram[I+i] & 1<< 7-j;
-                    !gfx[loc]&&(V[0xF]=1)
+            for (i = 0; i < z; i++) {
+                sprite = ram[I + i];
+                for (j = 0; j < 8; j++) {
+                    if ((sprite & 0x80) > 0) {
+                        x0 = V[x] + j
+                        y0 = V[y] + i
+
+                        if (x0 < 0) {
+                            x0 += 64;
+                        } else {
+                            x0 %= 64
+                        }
+
+                        if (y0 < 0) {
+                            y0 += 32;
+                        } else {
+                            y0 %= 32
+                        }
+
+                        loc = x0 + (y0 * 64);
+
+                        gfx[loc] ^= 1;
+
+                        if (!gfx[loc]) {
+                            V[0xF] = 1
+                        }
+                    }
+                    sprite <<= 1;
                 }
             }
             break;
