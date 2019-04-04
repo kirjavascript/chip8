@@ -8,7 +8,7 @@ status: pre golfing
 
 the CHIP-8 has a weird 16 key input system that is mapped to the keys 1234QWERASDFZXCV here
 
-### roms
+### ROMs
 
 to save space, ROMs are specified by passing a base64'd copy of the ROM in the URL querystring.  
 you can use [node romToUrl.js romname.ch8](romToURL.js) to generate these URLs from your own ROMs
@@ -123,4 +123,4 @@ some examples;
 #### [Zero Demo «zeroZshadow, 2007»](http://chip8.kirjava.xyz/?YAplBWYKZw9oFGEBYgFjAWQBYAqieNBWcAqiftBmcAqihNB2cAqiitCGagP6FWAKonjQVkUUYf9FAWEBhRTQVnAKon7QZkYUYv9GAWIBhiTQZnAKooTQdkcUY/9HAWMBhzTQdnAKoorQhkgUZP9IAWQBiETQhhIq/wMMMMD//8DA/MD/8MzM8MzDPMPDw8M8)
 #### [ZeroPong «zeroZshadow, 2007»](http://chip8.kirjava.xyz/?EnJgA/AVorBgCuCeEhbXhngB14YSImAL4J4SIteGeP/XhmAI4J4SMNmmegHZphI8YALgnhI82aZ6/9mmorbTQYNUhGRDABJ6Qz8SekQAZgFEH2b/00E/ARJqQwJlAUM+Zf/TQWDI8BgSQGAP4KESchICZwJoCmk+agpjIGQQxQFFABKIZf8SimUBxgFGABKUZv8SlmYBAOCisNeG2aaittNBYA/goRKqEqLgnhICEqqAgICAgICAAA==)
 
-ROMs originally taken from [https://github.com/dmatlack/chip8/tree/master/](here)
+ROMs originally taken from [here](https://github.com/dmatlack/chip8/tree/master/)
