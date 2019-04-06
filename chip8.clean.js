@@ -125,33 +125,33 @@ function cycle() {
                 case 0x0003:
                     V[x] ^= V[y];
                     break;
-                // case 0x0004:
-                //     V[x] += V[y];
-                //     V[0xF] = +(V[x] > 255);
-                //     V[x] %= 256;
-                //     break;
-                // case 0x0005:
-                //     V[0xF] = +(V[x] > V[y]);
-                //     V[x] -= V[y];
-                //     if (V[x] < 0) {
-                //         V[x] += 256;
-                //     }
-                //     break;
-                // case 0x0006:
-                //     V[0xF] = V[x] & 0x1;
-                //     V[x] >>= 1;
-                //     break;
-                // case 0x0007:
-                //     V[0xF] = +(V[y] > V[x]);
-                //     V[x] = V[y] - V[x];
-                //     if (V[x] < 0) {
-                //         V[x] += 256;
-                //     }
-                //     break;
-                // case 0x000E:
-                //     V[0xF] = +(V[x] & 0x80);
-                //     V[x] *= 2;
-                //     V[x] %= 256;
+                case 0x0004:
+                    V[x] += V[y];
+                    V[0xF] = +(V[x] > 255);
+                    V[x] %= 256;
+                    break;
+                case 0x0005:
+                    V[0xF] = +(V[x] > V[y]);
+                    V[x] -= V[y];
+                    if (V[x] < 0) {
+                        V[x] += 256;
+                    }
+                    break;
+                case 0x0006:
+                    V[0xF] = V[x] & 0x1;
+                    V[x] >>= 1;
+                    break;
+                case 0x0007:
+                    V[0xF] = +(V[y] > V[x]);
+                    V[x] = V[y] - V[x];
+                    if (V[x] < 0) {
+                        V[x] += 256;
+                    }
+                    break;
+                case 0x000E:
+                    V[0xF] = +(V[x] & 0x80);
+                    V[x] *= 2;
+                    V[x] %= 256;
             }
             break;
         case 0x9000:
