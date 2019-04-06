@@ -1,19 +1,4 @@
-// CHIP-8 emulator in XXX bytes
-// regpack for packing
-// add to main kirjava.xyz page when golf'd
-// steal more things from http://ix.io/1Fgq
-// TODO: step to fix bugs
-// TODO: chip8.js
-// newlines instead of ;
-//
-// (new TextEncoder).encode('abcd') (RIP edge)
-//
-// TODO: change map with for of
-//
-// TODO: move counter to a=s=b=[]
-// Object.getOwnPropertyNames(window).map((p,i)=>window[String.fromCharCode(i+248)]=window[p])
-// document.body.appendChild(document.createElement('pre')).textContent = Object.getOwnPropertyNames(window).map((p,i)=>JSON.stringify([p, String.fromCharCode(i+248)])).join`\n`
-
+J=[...'x123qweasdzc4rfv']
 K=[240,144,144,144,240,32,96,32,32,112,240,16,240,128,240,240,16,240,16,240,144,144,240,16,16,240,128,240,16,240,240,128,240,144,240,240,16,32,64,64,240,144,240,144,240,240,144,240,16,240,240,144,240,144,144,224,144,224,144,224,240,128,128,128,240,224,144,144,144,224,240,128,240,128,240,240,128,240,128,128].concat([...Array(4016)].fill(0))
 V=K.slice(80,96)
 M=K.slice(80,2128)
@@ -21,36 +6,34 @@ K.splice(512,0,...[...atob(location.search.slice(1))].map(d => d.charCodeAt(0)))
 I=B=D=P=E=S=0
 F=G=[]
 H=512
-J=[...'x123qweasdzc4rfv']
 onkeyup=e=>{i=J.indexOf(e.key);G[i]=0;P&&(V[x]=i,P=0)}
 onkeydown=e=>G[J.indexOf(e.key)]=1
-L=_=>{
-    requestAnimationFrame(L)
+L=_=>{requestAnimationFrame(L)
     for(i=0;i< 9;i++) {
         if (!P) {
-            switch(opcode = K[H] << 8 | K[H + 1], x = (opcode & 3840) >> 8, y = (opcode & 240) >> 4, z = opcode & 15, kk = opcode & 255, kkk = opcode & 4095, H += 2, opcode & 61440) {
+            switch(O = K[H] << 8 | K[H + 1], x = (O & 3840) >> 8, y = (O & 240) >> 4, z = O & 15, R = O & 255, Q = O & 4095, H += 2, O & 61440) {
                 case 0:
-                    224 == opcode ? M = [...Array(2048)].fill(0) : 238 == opcode && (H = F[--E]);
+                    224 == O ? M = [...Array(2048)].fill(0) : 238 == O && (H = F[--E]);
                     break;
                 case 4096:
-                    H = kkk;
+                    H = Q;
                     break;
                 case 8192:
-                    F[E] = H, E++, H = kkk;
+                    F[E] = H, E++, H = Q;
                 case 12288:
-                    V[x] == kk && (H += 2);
+                    V[x] == R && (H += 2);
                     break;
                 case 16384:
-                    V[x] != kk && (H += 2);
+                    V[x] != R && (H += 2);
                     break;
                 case 20480:
                     V[x] == V[y] && (H += 2);
                     break;
                 case 24576:
-                    V[x] = kk;
+                    V[x] = R;
                     break;
                 case 28672:
-                    V[x] = (kk + V[x]) % 256;
+                    V[x] = (R + V[x]) % 256;
                     break;
                 case 32768:
                     switch(z) {
@@ -92,13 +75,13 @@ L=_=>{
                     V[x] != V[y] && (H += 2);
                     break;
                 case 40960:
-                    I = kkk;
+                    I = Q;
                     break;
                 case 45056:
-                    H = kkk + V[0];
+                    H = Q + V[0];
                     break;
                 case 49152:
-                    V[x] = (0 | 255 * Math.random()) & kk;
+                    V[x] = (0 | 255 * Math.random()) & R;
                     break;
                 case 53248:
                     V[15] = 0;
@@ -109,7 +92,7 @@ L=_=>{
                     });
                     break;
                 case 57344:
-                    switch(kk) {
+                    switch(R) {
                         case 158:
                             G[V[x]] && (H += 2);
                             break;
@@ -117,7 +100,7 @@ L=_=>{
                             G[V[x]] || (H += 2);
                     }break;
                 case 61440:
-                    switch(kk) {
+                    switch(R) {
                         case 7:
                             V[x] = B;
                             break;

@@ -8,4 +8,13 @@
         <script src="chip8.js"></script>
     </body>
 </html>
-    <script>
+    <!--
+CHIP-8 emulator in XXX bytes
+regpack for packing
+
+(new TextEncoder).encode('abcd') (RIP edge)
+
+TODO: change map with for of
+
+Object.getOwnPropertyNames(window).map((p,i)=>window[String.fromCharCode(i+248)]=window[p])
+document.body.appendChild(document.createElement('pre')).textContent = Object.getOwnPropertyNames(window).map((p,i)=>JSON.stringify([p, String.fromCharCode(i+248)])).join`\n`
