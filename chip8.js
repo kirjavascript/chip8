@@ -11,27 +11,14 @@
 // TODO: change map with for of
 rom=[...atob(location.search.slice(1))].map(d => d.charCodeAt(0))
 
-font=[240,144,144,144,240,32,96,32,32,112,240,16,240,128,240,240,16,240,16,240,144,144,240,16,16,240,128,240,16,240,240,128,240,144,240,240,16,32,64,64,240,144,240,144,240,240,144,240,16,240,240,144,240,144,144,224,144,224,144,224,240,128,128,128,240,224,144,144,144,224,240,128,240,128,240,240,128,240,128,128]
-
-ram=[...Array(4096)].fill(0)
-V=ram.slice(0,16)
-gfx=ram.slice(0,2048)
-I=DT=ST=pause=SP=o=0
+ram=[240,144,144,144,240,32,96,32,32,112,240,16,240,128,240,240,16,240,16,240,144,144,240,16,16,240,128,240,16,240,240,128,240,144,240,240,16,32,64,64,240,144,240,144,240,240,144,240,16,240,240,144,240,144,144,224,144,224,144,224,240,128,128,128,240,224,144,144,144,224,240,128,240,128,240,240,128,240,128,128].concat([...Array(4016)].fill(0))
+V=ram.slice(80,96)
+gfx=ram.slice(80,2128)
+I=DT=ST=P=SP=S=0
 stack=[]
 keys=[]
 PC=512
-
-// load font
-
-ram.splice(0, 0, ...font);
-
-// load program into memory
-
-ram.splice(0x200, 0, ...rom);
-
-// truncate memory (probably not needed)
-
-ram = ram.slice(0, 4096)
+ram.splice(0x200, 0, ...rom)
 
 // handle input
 
@@ -39,15 +26,15 @@ keymap=[...'x123qweasdzc4rfv']
 onkeyup=e=>{
     index=keymap.indexOf(e.key)
     keys[index]=0
-    if (pause) {
+    if (P) {
         V[x] = index
-        pause=0
+        P=0
     }
 }
 onkeydown=e=>keys[keymap.indexOf(e.key)]=1
 
 function cycle() {
-    if (pause) return; // TODO
+    if (P) return; // TODO
 
     // get opcode (2 bytes)
     opcode = ram[PC] << 8 | ram[PC + 1]
@@ -192,7 +179,7 @@ function cycle() {
                     V[x] = DT;
                     break;
                 case 0x000A:
-                    pause=1
+                    P=1
                     return;
                 case 0x0015:
                     DT = V[x]
@@ -245,14 +232,14 @@ function cycle() {
     if (DT) DT--
     if (ST) {
         ST--
-        if (!o) {
+        if (!S) {
             ac = new AudioContext()
-            o = ac.createOscillator()
-            o.connect(ac.destination)
-            o.start()
+            S = ac.createOscillator()
+            S.connect(ac.destination)
+            S.start()
         }
     } else {
-        if (o) o.stop(),o=0
+        if (S) S.stop(),S=0
     }
 } ()
 
