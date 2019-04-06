@@ -170,8 +170,7 @@ function cycle() {
             break;
         case 0xD000:
             V[0xF] = 0;
-            for (i = 0; i < z; i++) {
-                sprite = ram[I + i];
+            ram.slice(I, z + I).map((sprite, i) => {
                 for (j = 0; j < 8; j++) {
                     if ((sprite & 0x80) > 0) {
                         x0 = V[x] + j
@@ -199,7 +198,7 @@ function cycle() {
                     }
                     sprite <<= 1;
                 }
-            }
+            })
             break;
         case 0xE000:
             switch (kk) {

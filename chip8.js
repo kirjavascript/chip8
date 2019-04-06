@@ -1,5 +1,4 @@
 // CHIP-8 emulator in XXX bytes
-// closure -> beautify  for ideas
 // regpack for packing
 // add to main kirjava.xyz page when golf'd
 // steal more things from http://ix.io/1Fgq
@@ -23,7 +22,7 @@ V=[...Array(16)].fill(0) // 8 bit
 I=0 // 12bit used
 DT=0 // delay timer
 ST=0 // sound timer
-PC=0x200 // 16 bit
+PC=512 // 16 bit
 SP=0 // 8 bit
 stack=[...Array(16)].fill(0) // 16 bit
 pause=0
@@ -166,16 +165,13 @@ function cycle() {
             break;
         case 0xD000:
             V[0xF] = 0;
-            for (i = 0; i < z; i++) {
-                sprite = ram[I + i];
+            ram.slice(I, z + I).map((sprite, i) => {
                 for (j = 0; j < 8; j++) {
                     if ((sprite & 0x80) > 0) {
                         x0 = V[x] + j
                         y0 = V[y] + i
 
-                        b=n=>n>>8?-n>>>24:n
-
-                        loc = b(x0) + (b(y0) * 64);
+                        loc = (x0 < 0 ? x0 + 64 : x0 % 64) + ((y0 < 0 ? y0 + 32 : y0 % 32) * 64)
 
                         gfx[loc] ^= 1;
 
@@ -185,14 +181,7 @@ function cycle() {
                     }
                     sprite <<= 1;
                 }
-            }
-            // for (i = 0, py = V[y] % 32; i < z; i++, py = (py+1) % 32) {
-            //     for (j = 0, px = V[x] % 64; j < 8; j++, px = (px+1) % 64) {
-            //         loc = px + (py * 64)
-            //         gfx[loc] ^= ram[I+i] >> 7-j & 1
-            //         !gfx[loc]&&(V[0xF]=1)
-            //     }
-            // }
+            })
             break;
         case 0xE000:
             switch (kk) {
