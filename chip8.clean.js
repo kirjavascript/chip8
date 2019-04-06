@@ -262,11 +262,13 @@ function cycle() {
 
 ~function loop() {
     requestAnimationFrame(loop)
-    for(i=0;i< 10;i++) cycle()
+    for(i=0;i< 9;i++) cycle()
 
     // render
 
-    c=a=>a+a&&[a.splice(0,64).map(d=>d?'  ':'██').join``,...c(a)]
+    // not using space here because it renders incorrectly in chrome
+
+    c=a=>a+a&&[a.splice(0,64).map(d=>d?'░░':'██').join``,...c(a)]
     document.body.innerHTML='<pre>'+c([...gfx]).join`\n`
 
     // handle timers

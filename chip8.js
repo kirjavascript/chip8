@@ -5,6 +5,7 @@
 // steal more things from http://ix.io/1Fgq
 // TODO: step to fix bugs
 // TODO: chip8.js
+// newlines instead of ;
 //
 // (new TextEncoder).encode('abcd') (RIP edge)
 //
@@ -172,19 +173,9 @@ function cycle() {
                         x0 = V[x] + j
                         y0 = V[y] + i
 
-                        if (x0 < 0) {
-                            x0 += 64;
-                        } else {
-                            x0 %= 64
-                        }
+                        b=n=>n>>8?-n>>>24:n
 
-                        if (y0 < 0) {
-                            y0 += 32;
-                        } else {
-                            y0 %= 32
-                        }
-
-                        loc = x0 + (y0 * 64);
+                        loc = b(x0) + (b(y0) * 64);
 
                         gfx[loc] ^= 1;
 
@@ -195,6 +186,13 @@ function cycle() {
                     sprite <<= 1;
                 }
             }
+            // for (i = 0, py = V[y] % 32; i < z; i++, py = (py+1) % 32) {
+            //     for (j = 0, px = V[x] % 64; j < 8; j++, px = (px+1) % 64) {
+            //         loc = px + (py * 64)
+            //         gfx[loc] ^= ram[I+i] >> 7-j & 1
+            //         !gfx[loc]&&(V[0xF]=1)
+            //     }
+            // }
             break;
         case 0xE000:
             switch (kk) {
@@ -257,10 +255,10 @@ function cycle() {
 
 ~function loop() {
     requestAnimationFrame(loop)
-    for(i=0;i< 10;i++) cycle()
+    for(i=0;i< 9;i++) cycle()
 
     // &block;
-    c=a=>a+a&&[a.splice(0,64).map(d=>d?'  ':'██').join``,...c(a)]
+    c=a=>a+a&&[a.splice(0,64).map(d=>d?'░░':'██').join``,...c(a)]
     document.body.innerHTML='<pre>'+c([...gfx]).join`\n`
 
     // handle timers
