@@ -9,7 +9,7 @@ F=G=[];
 H=512;
 onkeyup=e=>{i=J.indexOf(e.key);G[i]=0;P&&(V[x]=i,P=0)};
 onkeydown=e=>G[J.indexOf(e.key)]=1;
-L=_=>{requestAnimationFrame(L);
+L=_=>{setTimeout(L,16);
     for(i=0;9>i;i++){
         if(!P){
             switch(O=K[H]<< 8|K[H+1],x=(O&3840)>>8,y=(O&240)>>4,z=O&15,R=O&255,Q=O&4095,H+=2,O&61440){
