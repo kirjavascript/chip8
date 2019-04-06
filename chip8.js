@@ -19,9 +19,6 @@ stack=[]
 keys=[]
 PC=512
 ram.splice(0x200, 0, ...rom)
-
-// handle input
-
 keymap=[...'x123qweasdzc4rfv']
 onkeyup=e=>{
     index=keymap.indexOf(e.key)
@@ -32,191 +29,133 @@ onkeyup=e=>{
     }
 }
 onkeydown=e=>keys[keymap.indexOf(e.key)]=1
-
 function cycle() {
-    if (P) return; // TODO
-
-    // get opcode (2 bytes)
-    opcode = ram[PC] << 8 | ram[PC + 1]
-    x = (opcode & 0x0F00) >> 8 // TODO: divide
-    y = (opcode & 0x00F0) >> 4
-    z = opcode & 0x000F
-    kk = opcode & 0x00FF
-    kkk = opcode & 0x0FFF
-
-    // inc program counter
-    PC += 2
-
-    switch (opcode & 0xF000) {
-        case 0:
-            if (opcode == 0x00E0) { // CLS
-                gfx = [...Array(64*32)].fill(0)
-            } else if (opcode == 0x00EE) { // RET
-                PC = stack[--SP]
-            }
-            break;
-        case 0x1000: // JUMP
-            PC = kkk
-            break;
-        case 0x2000: // CALL
-            stack[SP] = PC
-            SP++
-            PC = kkk
-        case 0x3000:
-            if (V[x] == kk) {
-                PC += 2
-            }
-            break;
-        case 0x4000:
-            if (V[x] != kk) {
-                PC += 2
-            }
-            break;
-        case 0x5000:
-            if (V[x] == V[y]) {
-                PC += 2
-            }
-            break;
-        case 0x6000:
-            V[x] = kk;
-            break;
-        case 0x7000:
-            V[x] = (kk + V[x]) % 256
-            break;
-        case 0x8000:
-            switch (z) {
-                case 0x0000:
-                    V[x] = V[y];
-                    break;
-                case 0x0001:
-                    V[x] |= V[y];
-                    break;
-                case 0x0002:
-                    V[x] &= V[y];
-                    break;
-                case 0x0003:
-                    V[x] ^= V[y];
-                    break;
-                case 0x0004:
-                    V[x] += V[y];
-                    V[0xF] = +(V[x] > 255);
-                    V[x] %= 256;
-                    break;
-                case 0x0005:
-                    V[0xF] = +(V[x] > V[y]);
-                    V[x] -= V[y];
-                    if (V[x] < 0) {
-                        V[x] += 256;
+    if (!P) {
+        switch(opcode = ram[PC] << 8 | ram[PC + 1], x = (opcode & 3840) >> 8, y = (opcode & 240) >> 4, z = opcode & 15, kk = opcode & 255, kkk = opcode & 4095, PC += 2, opcode & 61440) {
+            case 0:
+                224 == opcode ? gfx = [...Array(2048)].fill(0) : 238 == opcode && (PC = stack[--SP]);
+                break;
+            case 4096:
+                PC = kkk;
+                break;
+            case 8192:
+                stack[SP] = PC, SP++, PC = kkk;
+            case 12288:
+                V[x] == kk && (PC += 2);
+                break;
+            case 16384:
+                V[x] != kk && (PC += 2);
+                break;
+            case 20480:
+                V[x] == V[y] && (PC += 2);
+                break;
+            case 24576:
+                V[x] = kk;
+                break;
+            case 28672:
+                V[x] = (kk + V[x]) % 256;
+                break;
+            case 32768:
+                switch(z) {
+                    case 0:
+                        V[x] = V[y];
+                        break;
+                    case 1:
+                        V[x] |= V[y];
+                        break;
+                    case 2:
+                        V[x] &= V[y];
+                        break;
+                    case 3:
+                        V[x] ^= V[y];
+                        break;
+                    case 4:
+                        V[x] += V[y];
+                        V[15] = +(255 < V[x]);
+                        V[x] %= 256;
+                        break;
+                    case 5:
+                        V[15] = +(V[x] > V[y]);
+                        V[x] -= V[y];
+                        0 > V[x] && (V[x] += 256);
+                        break;
+                    case 6:
+                        V[15] = V[x] & 1;
+                        V[x] >>= 1;
+                        break;
+                    case 7:
+                        V[15] = +(V[y] > V[x]);
+                        V[x] = V[y] - V[x];
+                        0 > V[x] && (V[x] += 256);
+                        break;
+                    case 14:
+                        V[15] = +(V[x] & 128), V[x] *= 2, V[x] %= 256;
+                }break;
+            case 36864:
+                V[x] != V[y] && (PC += 2);
+                break;
+            case 40960:
+                I = kkk;
+                break;
+            case 45056:
+                PC = kkk + V[0];
+                break;
+            case 49152:
+                V[x] = (0 | 255 * Math.random()) & kk;
+                break;
+            case 53248:
+                V[15] = 0;
+                ram.slice(I, z + I).map((a, b) => {
+                    for (j = 0; 8 > j; j++) {
+                        0 < (a & 128) && (x0 = V[x] + j, y0 = V[y] + b, loc = (0 > x0 ? x0 + 64 : x0 % 64) + 64 * (0 > y0 ? y0 + 32 : y0 % 32), gfx[loc] ^= 1, gfx[loc] || (V[15] = 1)), a <<= 1;
                     }
-                    break;
-                case 0x0006:
-                    V[0xF] = V[x] & 0x1;
-                    V[x] >>= 1;
-                    break;
-                case 0x0007:
-                    V[0xF] = +(V[y] > V[x]);
-                    V[x] = V[y] - V[x];
-                    if (V[x] < 0) {
-                        V[x] += 256;
-                    }
-                    break;
-                case 0x000E:
-                    V[0xF] = +(V[x] & 0x80);
-                    V[x] *= 2;
-                    V[x] %= 256;
-            }
-            break;
-        case 0x9000:
-            if (V[x] != V[y]) {
-                PC += 2
-            }
-            break;
-        case 0xA000: // ADDR
-            I = kkk
-            break;
-        case 0xB000:
-            PC = kkk + V[0];
-            break;
-        case 0xC000:
-            V[x] = (0|Math.random() * 0xFF) & kk
-            break;
-        case 0xD000:
-            V[0xF] = 0;
-            ram.slice(I, z + I).map((sprite, i) => {
-                for (j = 0; j < 8; j++) {
-                    if ((sprite & 0x80) > 0) {
-                        x0 = V[x] + j
-                        y0 = V[y] + i
-
-                        loc = (x0 < 0 ? x0 + 64 : x0 % 64) + ((y0 < 0 ? y0 + 32 : y0 % 32) * 64)
-
-                        gfx[loc] ^= 1;
-
-                        if (!gfx[loc]) {
-                            V[0xF] = 1
+                });
+                break;
+            case 57344:
+                switch(kk) {
+                    case 158:
+                        keys[V[x]] && (PC += 2);
+                        break;
+                    case 161:
+                        keys[V[x]] || (PC += 2);
+                }break;
+            case 61440:
+                switch(kk) {
+                    case 7:
+                        V[x] = DT;
+                        break;
+                    case 10:
+                        P = 1;
+                        return;
+                    case 21:
+                        DT = V[x];
+                        break;
+                    case 24:
+                        ST = V[x];
+                        break;
+                    case 30:
+                        I += V[x];
+                        break;
+                    case 41:
+                        I = 5 * V[x];
+                        break;
+                    case 51:
+                        ram[I] = parseInt(V[x] / 100);
+                        ram[I + 1] = parseInt(V[x] % 100 / 10);
+                        ram[I + 2] = V[x] % 10;
+                        break;
+                    case 85:
+                        for (i = 0; i <= x; i++) {
+                            ram[I + i] = V[i];
                         }
-                    }
-                    sprite <<= 1;
+                        break;
+                    case 101:
+                        for (i = 0; i <= x; i++) {
+                            V[i] = ram[I + i];
+                        }
                 }
-            })
-            break;
-        case 0xE000:
-            switch (kk) {
-                case 0x009E:
-                    if (keys[V[x]]) {
-                        PC += 2;
-                    }
-                    break;
-                case 0x00A1:
-                    if (!keys[V[x]]) {
-                        PC += 2;
-                    }
-            }
-            break;
-        case 0xF000:
-            switch (kk) {
-                case 0x0007:
-                    V[x] = DT;
-                    break;
-                case 0x000A:
-                    P=1
-                    return;
-                case 0x0015:
-                    DT = V[x]
-                    break;
-                case 0x0018:
-                    ST = V[x]
-                    break;
-                case 0x001E:
-                    I += V[x]
-                    break;
-                case 0x0029:
-                    I = V[x] * 5
-                    break;
-                case 0x0033:
-                    ram[I] = parseInt(V[x] / 100)
-                    ram[I+1] = parseInt(V[x] % 100 / 10)
-                    ram[I+ 2] = V[x] % 10
-                    break;
-                case 0x0055:
-                    for (i = 0; i <= x; i++) {
-                        ram[I+ i] = V[i];
-                    }
-                    break;
-                case 0x0065:
-                    for (i = 0; i <= x; i++) {
-                        V[i] = ram[I + i];
-                    }
-                    break;
-
-            }
-
-            break;
-        default:
-            throw new Error(`unimplemented opcode: 0x${opcode.toString(16)}`)
+        }
     }
-
-
 }
 
 ~function loop() {
@@ -229,18 +168,8 @@ function cycle() {
 
     // handle timers
 
-    if (DT) DT--
-    if (ST) {
-        ST--
-        if (!S) {
-            ac = new AudioContext()
-            S = ac.createOscillator()
-            S.connect(ac.destination)
-            S.start()
-        }
-    } else {
-        if (S) S.stop(),S=0
-    }
+    DT && DT--;
+    ST ? (ST--, S || (ac = new AudioContext, S = ac.createOscillator(), S.connect(ac.destination), S.start())) : S && (S.stop(), S = 0);
 } ()
 
 // TODO: move counter to a=s=b=[]
