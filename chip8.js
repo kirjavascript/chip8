@@ -11,7 +11,7 @@ K.splice(512,0,...[...atob(location.search.slice(1))].map(d=>d.charCodeAt()));
 onkeyup=e=>{i=J.indexOf(e.key);G[i]=0;P&&(V[x]=i,P=0)};
 onkeydown=e=>G[J.indexOf(e.key)]=1;
 setInterval(_=>{
-    for(i=0;9>i;i++)
+    for(L=9;L--;)
         if(!P){
             switch(O=K[H]<< 8|K[H+1],x=(O&3840)>>8,y=(O&240)>>4,z=O&15,R=O&255,Q=O&4095,H+=2,O&61440){
                 case 0:
