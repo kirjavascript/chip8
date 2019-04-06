@@ -13,23 +13,13 @@ rom=[...atob(location.search.slice(1))].map(d => d.charCodeAt(0))
 
 font=[240,144,144,144,240,32,96,32,32,112,240,16,240,128,240,240,16,240,16,240,144,144,240,16,16,240,128,240,16,240,240,128,240,144,240,240,16,32,64,64,240,144,240,144,240,240,144,240,16,240,240,144,240,144,144,224,144,224,144,224,240,128,128,128,240,224,144,144,144,224,240,128,240,128,240,240,128,240,128,128]
 
-// memory
-
-// TODO: slice from RAM to create other arrays
-
 ram=[...Array(4096)].fill(0)
-V=[...Array(16)].fill(0) // 8 bit
-I=0 // 12bit used
-DT=0 // delay timer
-ST=0 // sound timer
-PC=512 // 16 bit
-SP=0 // 8 bit
-stack=[...Array(16)].fill(0) // 16 bit
-pause=0
-
-o=0 // sound
-gfx=[...Array(64*32)].fill(0) // graphics
-keys=[...Array(16)].fill(0) // input
+V=ram.slice(0,16)
+gfx=ram.slice(0,2048)
+I=DT=ST=pause=SP=o=0
+stack=[]
+keys=[]
+PC=512
 
 // load font
 
