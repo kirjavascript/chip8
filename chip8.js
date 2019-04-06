@@ -126,13 +126,13 @@ L=_=>{
                             K.splice(I,3,...[...(''+V[x]).padStart(3,0)].map(d=>+d));
                             break;
                         case 85:
-                            for(i=0;i<=x;i++){
-                                K[I+i]=V[i]
+                            for(i=0;i<=x;){
+                                K[I+i]=V[i++]
                             }
                             break;
                         case 101:
-                            for(i=0;i<=x;i++){
-                                V[i]=K[I+i]
+                            for(i=0;i<=x;){
+                                V[i]=K[I+i++]
                             }
                     }
             }
