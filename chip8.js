@@ -1,15 +1,16 @@
-J=[...'x123qweasdzc4rfv'];
-Q=[...Array(4016)].fill(0);
-K=[...'ðð ` pðððððððððððððð @@ððððððððàààððààððððð'].map(d=>d.charCodeAt()).concat(Q);
-V=Q.slice(0,16);
-M=Q.slice(0,2048);
-K.splice(512,0,...[...atob(location.search.slice(1))].map(d=>d.charCodeAt()));
 I=B=D=P=E=S=0;
 F=G=[];
 H=512;
+J=[...'x123qweasdzc4rfv'];
+Q=[...Array(4016)].fill(0);
+K=[...'ðð ` pðððððððððððððð @@ððððððððàààððààððððð'].map(d=>d.charCodeAt()).concat(Q)
+V=Q.slice(0,16);
+M=Q.slice(0,2048);
+K.splice(512,0,...[...atob(location.search.slice(1))].map(d=>d.charCodeAt()));
 onkeyup=e=>{i=J.indexOf(e.key);G[i]=0;P&&(V[x]=i,P=0)};
 onkeydown=e=>G[J.indexOf(e.key)]=1;
-L=_=>{setTimeout(L,16);
+L=_=>{
+    setTimeout(L,16);
     for(i=0;9>i;i++){
         if(!P){
             switch(O=K[H]<< 8|K[H+1],x=(O&3840)>>8,y=(O&240)>>4,z=O&15,R=O&255,Q=O&4095,H+=2,O&61440){

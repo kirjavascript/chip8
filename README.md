@@ -1,8 +1,12 @@
 # [CHIP-8](https://en.wikipedia.org/wiki/CHIP-8) emulator in 1440 bytes
 
+### about
+
+implemented using terse JS then packed with [RegPack](http://siorki.github.io/regPack.html)
+
 ### controls
 
-the CHIP-8 has a weird 16 key input system that are mapped to the keys
+the CHIP-8 has a 16 key input system that is mapped:
 
 ```
 1234
@@ -15,7 +19,7 @@ the ROMs tend to just use random keys
 
 ### ROMs
 
-to save space, ROMs are specified by passing a base64'd copy of the ROM in the URL querystring  
+ROMs are specified by passing a base64'd copy of the ROM in the URL querystring  
 you can use [node romToUrl.js romname.ch8](romToURL.js) to generate these URLs from your own ROMs
 
 some examples;
