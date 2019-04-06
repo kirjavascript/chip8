@@ -83,7 +83,7 @@ setInterval(_=>{
                     H=Q+V[0];
                     break;
                 case 49152:
-                    V[x]=(0|255*Math.random())&R;
+                    V[x]=(new Date%255)&R;
                     break;
                 case 53248:
                     V[15]=0;
