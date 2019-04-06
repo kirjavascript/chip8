@@ -120,9 +120,7 @@ L=_=>{requestAnimationFrame(L)
                             I = 5 * V[x];
                             break;
                         case 51:
-                            K[I] = parseInt(V[x] / 100);
-                            K[I + 1] = parseInt(V[x] % 100 / 10);
-                            K[I + 2] = V[x] % 10;
+                            K.splice(I,3,...(''+V[x]).padStart(3,0).split``.map(d=>+d))
                             break;
                         case 85:
                             for (i = 0; i <= x; i++) {
