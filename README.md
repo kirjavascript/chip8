@@ -1,8 +1,4 @@
-# tiny chip8 emulation
-
-[CHIP-8](https://en.wikipedia.org/wiki/CHIP-8) emulator implementation in the fewest bytes possible
-
-status: pre golfing
+# [CHIP-8](https://en.wikipedia.org/wiki/CHIP-8) emulator in 1459 bytes
 
 ### controls
 
