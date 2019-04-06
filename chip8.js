@@ -71,7 +71,7 @@ setInterval(_=>{
                             0>V[x]&&(V[x]+=256);
                             break;
                         case 14:
-                            V[15]=+(V[x]&128),V[x]*=2,V[x]%=256;
+                            V[15]=+(V[x]&128),V[x]*=2,V[x]%=256
                     }break;
                 case 36864:
                     V[x]!=V[y]&&(H+=2);
@@ -88,7 +88,7 @@ setInterval(_=>{
                 case 53248:
                     V[15]=0;
                     K.slice(I,z+I).map((a,b)=>{
-                        for(j=0;8>j;j++)(a&128)>0&&(x0=V[x]+j,y0=V[y]+b,loc=(0>x0?x0+64:x0%64)+64*(0>y0?y0+32:y0%32),M[loc]^=1,M[loc]||(V[15]=1)),a<<=1;
+                        for(j=0;8>j;j++)(a&128)>0&&(x0=V[x]+j,y0=V[y]+b,loc=(0>x0?x0+64:x0%64)+64*(0>y0?y0+32:y0%32),M[loc]^=1,M[loc]||(V[15]=1)),a<<=1
                     });
                     break;
                 case 57344:
@@ -97,7 +97,7 @@ setInterval(_=>{
                             G[V[x]]&&(H+=2);
                             break;
                         case 161:
-                            G[V[x]]||(H+=2);
+                            G[V[x]]||(H+=2)
                     }break;
                 case 61440:
                     switch(R){
@@ -126,7 +126,7 @@ setInterval(_=>{
                             for(i=0;i<=x;)K[I+i]=V[i++];
                             break;
                         case 101:
-                            for(i=0;i<=x;)V[i]=K[I+i++];
+                            for(i=0;i<=x;)V[i]=K[I+i++]
                     }
             }
         }
