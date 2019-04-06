@@ -29,9 +29,9 @@ L=_=>{
                 case 16384:
                     V[x]!=R&&(H+=2);
                     break;
-                case 20480:
-                    V[x]==V[y]&&(H+=2);
-                    break;
+                // case 20480:
+                //     V[x]==V[y]&&(H+=2);
+                //     break;
                 case 24576:
                     V[x]=R;
                     break;
@@ -43,9 +43,9 @@ L=_=>{
                         case 0:
                             V[x]=V[y];
                             break;
-                        case 1:
-                            V[x]|=V[y];
-                            break;
+                        // case 1:
+                        //     V[x]|=V[y];
+                        //     break;
                         case 2:
                             V[x]&=V[y];
                             break;
@@ -54,7 +54,7 @@ L=_=>{
                             break;
                         case 4:
                             V[x]+=V[y];
-                            V[15]=+(V[x]>255);
+                            V[15]=+(V[x])>255;
                             V[x]%=256;
                             break;
                         case 5:
@@ -62,17 +62,17 @@ L=_=>{
                             V[x]-=V[y];
                             0>V[x]&&(V[x]+=256);
                             break;
-                        case 6:
-                            V[15]=V[x]&1;
-                            V[x]>>=1;
-                            break;
-                        case 7:
-                            V[15]=+(V[y]>V[x]);
-                            V[x]=V[y]-V[x];
-                            0>V[x]&&(V[x]+=256);
-                            break;
-                        case 14:
-                            V[15]=+(V[x]&128),V[x]*=2,V[x]%=256;
+                        // case 6:
+                        //     V[15]=V[x]&1;
+                        //     V[x]>>=1;
+                        //     break;
+                        // case 7:
+                        //     V[15]=+(V[y]>V[x]);
+                        //     V[x]=V[y]-V[x];
+                        //     0>V[x]&&(V[x]+=256);
+                        //     break;
+                        // case 14:
+                        //     V[15]=+(V[x]&128),V[x]*=2,V[x]%=256;
                     }break;
                 case 36864:
                     V[x]!=V[y]&&(H+=2);
@@ -80,9 +80,9 @@ L=_=>{
                 case 40960:
                     I=Q;
                     break;
-                case 45056:
-                    H=Q+V[0];
-                    break;
+                // case 45056:
+                //     H=Q+V[0];
+                //     break;
                 case 49152:
                     V[x]=(0|255*Math.random())&R;
                     break;
@@ -141,5 +141,5 @@ L=_=>{
     c=a=>a+a&&[a.splice(0,64).map(d=>d?'░░':'██').join``,...c(a)];
     document.body.innerHTML='<pre>'+c([...M]).join`\n`;
     B&&B--;
-    D?(D--,S||(A=new AudioContext,S=A.createOscillator(),S.connect(A.destination),S.start())):S&&(S.stop(),S=0)
+    // D?(D--,S||(A=new AudioContext,S=A.createOscillator(),S.connect(A.destination),S.start())):S&&(S.stop(),S=0)
 };L()
