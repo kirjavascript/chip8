@@ -26,7 +26,7 @@ setInterval(_=>{
                     V[x]==R&&(H+=2);
                     break;
                 case 16384:
-                    V[x]!=R&&(H+=2);
+                    V[x]^R&&(H+=2);
                     break;
                 case 20480:
                     V[x]==V[y]&&(H+=2);
@@ -74,7 +74,7 @@ setInterval(_=>{
                             V[15]=+(V[x]&128),V[x]*=2,V[x]%=256
                     }break;
                 case 36864:
-                    V[x]!=V[y]&&(H+=2);
+                    V[x]^V[y]&&(H+=2);
                     break;
                 case 40960:
                     I=Q;
