@@ -2,10 +2,10 @@ I=B=D=P=E=S=0;
 F=[];
 G=[];
 H=512;
+V=H*8; // 4096
 J=[...'x123qweasdzc4rfv'];
 T=Array(4016).fill(0);
-K=[...'f999f26227f1f8ff1f1f99f11f8f1ff8f9ff1244f9f9ff9f1ff9f99e9e9ef888fe999ef8f8ff8f880'].map(d=>parseInt(d,16)*16)
-.concat(T);
+K=[...'f999f26227f1f8ff1f1f99f11f8f1ff8f9ff1244f9f9ff9f1ff9f99e9e9ef888fe999ef8f8ff8f880'].map(d=>parseInt(d,16)*16).concat(T);
 V=T.slice(0,16);
 M=T.slice(0,2048);
 K.splice(512,0,...[...atob(location.search.slice(1))].map(d=>d.charCodeAt()));
