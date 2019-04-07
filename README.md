@@ -1,4 +1,4 @@
-# [CHIP-8](https://en.wikipedia.org/wiki/CHIP-8) emulator in 1419 bytes
+# [CHIP-8](https://en.wikipedia.org/wiki/CHIP-8) emulator in 1399 bytes
 
 ### about
 
