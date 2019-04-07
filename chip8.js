@@ -12,7 +12,7 @@ onkeyup=e=>{i=J.indexOf(e.key);G[i]=0;P&&(V[x]=i,P=0)};
 onkeydown=e=>G[J.indexOf(e.key)]=1;
 c=a=>a+a&&[a.splice(0,64).map(d=>d?'░░':'██').join``,...c(a)];
 setInterval(_=>{
-    for(L=9;L--;document.body.innerHTML='<pre>'+c([...M]).join`\n`)
+    for(L=9;L--;)
         !P&&(
             O=K[H]<<
             8|K[H+1],x=(O&3840)>>8,y=(O&240)>>4,z=O&15,R=O&255,Q=O&4095,H+=2,
@@ -61,6 +61,7 @@ setInterval(_=>{
                 }[R]())
             ][(O&61440)/4096]()
         );
+    document.body.innerHTML='<pre>'+c([...M]).join`\n`;
     B&&B--;
     D?(D--,S||(A=new AudioContext,S=A.createOscillator(),S.connect(A.destination),S.start())):S&&(S.stop(),S=0)
 },16)
