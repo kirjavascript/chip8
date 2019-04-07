@@ -2,21 +2,20 @@ I=B=D=P=E=S=0;
 F=[];
 G=[];
 H=512;
-W=H*8;
 J=[...'x123qweasdzc4rfv'];
 T=Array(4016).fill(0);
 K=[...'f999f26227f1f8ff1f1f99f11f8f1ff8f9ff1244f9f9ff9f1ff9f99e9e9ef888fe999ef8f8ff8f880'].map(d=>parseInt(d,16)*16).concat(T);
 V=T.slice(0,16);
-M=T.slice(0,W/2);
+M=T.slice(0,2048);
 K.splice(H,0,...[...atob(location.search.slice(1))].map(d=>d.charCodeAt()));
 onkeyup=e=>{i=J.indexOf(e.key);G[i]=0;P&&(V[x]=i,P=0)};
 onkeydown=e=>G[J.indexOf(e.key)]=1;
 setInterval(_=>{
     for(L=9;L--;)
         if(!P){
-            switch(O=K[H]<< 8|K[H+1],x=(O&3840)>>8,y=(O&240)>>4,z=O&15,R=O&255,Q=O&W-1,H+=2,(O&W*15)/4096){
+            switch(O=K[H]<< 8|K[H+1],x=(O&3840)>>8,y=(O&240)>>4,z=O&15,R=O&255,Q=O&4095,H+=2,(O&61440)/4096){
                 case 0:
-                    224==O?M=T.slice(0,W/2):238==O&&(H=F[--E]);
+                    224==O?M=T.slice(0,2048):238==O&&(H=F[--E]);
                     break;
                 case 1:
                     H=Q;
