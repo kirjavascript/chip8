@@ -2,6 +2,9 @@
 // https://codegolf.stackexchange.com/questions/37624/tips-for-golfing-in-ecmascript-6-and-above -->
 //
 // (new TextEncoder).encode('abcd') (RIP edge)
+//
+// I=B=D=P=E=S=0; // could save 1char by moving where another zero is
+// location.search -> location.hash
 
 // Object.getOwnPropertyNames(window).map((p,i)=>window[String.fromCharCode(i+248)]=window[p])
 // document.body.appendChild(document.createElement('pre')).textContent = Object.getOwnPropertyNames(window).map((p,i)=>JSON.stringify([p, String.fromCharCode(i+248)])).join`\n`
