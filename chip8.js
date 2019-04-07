@@ -14,31 +14,31 @@ onkeydown=e=>G[J.indexOf(e.key)]=1;
 setInterval(_=>{
     for(L=9;L--;)
         if(!P){
-            switch(O=K[H]<< 8|K[H+1],x=(O&3840)>>8,y=(O&240)>>4,z=O&15,R=O&255,Q=O&W-1,H+=2,O&W*15){
+            switch(O=K[H]<< 8|K[H+1],x=(O&3840)>>8,y=(O&240)>>4,z=O&15,R=O&255,Q=O&W-1,H+=2,(O&W*15)/4096){
                 case 0:
                     224==O?M=T.slice(0,W/2):238==O&&(H=F[--E]);
                     break;
-                case W:
+                case 1:
                     H=Q;
                     break;
-                case W*2:
+                case 2:
                     F[E]=H,E++,H=Q;
-                case W*3:
+                case 3:
                     V[x]==R&&(H+=2);
                     break;
-                case W*4:
+                case 4:
                     V[x]^R&&(H+=2);
                     break;
-                case W*5:
+                case 5:
                     V[x]==V[y]&&(H+=2);
                     break;
-                case W*6:
+                case 6:
                     V[x]=R;
                     break;
-                case W*7:
+                case 7:
                     V[x]=(R+V[x])%256;
                     break;
-                case W*8:
+                case 8:
                     switch(z) {
                         case 0:
                             V[x]=V[y];
@@ -74,25 +74,25 @@ setInterval(_=>{
                         case 14:
                             V[15]=+(V[x]&128),V[x]*=2,V[x]%=256
                     }break;
-                case W*9:
+                case 9:
                     V[x]^V[y]&&(H+=2);
                     break;
-                case W*10:
+                case 10:
                     I=Q;
                     break;
-                case W*11:
+                case 11:
                     H=Q+V[0];
                     break;
-                case W*12:
+                case 12:
                     V[x]=(new Date%255)&R;
                     break;
-                case W*13:
+                case 13:
                     V[15]=0;
                     K.slice(I,z+I).map((a,b)=>{
                         for(j=0;8>j;j++)(a&128)>0&&(x0=V[x]+j,y0=V[y]+b,loc=(0>x0?x0+64:x0%64)+64*(0>y0?y0+32:y0%32),M[loc]^=1,M[loc]||(V[15]=1)),a<<=1
                     });
                     break;
-                case W*14:
+                case 14:
                     switch(R){
                         case 158:
                             G[V[x]]&&(H+=2);
@@ -100,7 +100,7 @@ setInterval(_=>{
                         case 161:
                             G[V[x]]||(H+=2)
                     }break;
-                case W*15:
+                case 15:
                     switch(R){
                         case 7:
                             V[x]=B;
