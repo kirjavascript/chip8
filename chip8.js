@@ -34,7 +34,7 @@ setInterval(_=>{
                     _=>(V[15]=V[x]&1,V[x]>>=1),
                     _=>(V[15]=+(V[y]>V[x]),V[x]=V[y]-V[x],0>V[x]&&(V[x]+=256)),
                     _=>3,_=>1,_=>3,_=>3,_=>7,_=>0,
-                    _=>(V[15]=+(V[x]&128),V[x]*=2,V[x]%=256),
+                    _=>(V[15]=+(V[x]&128),V[x]*=2,V[x]%=256)
                 ][z](),
                 _=>V[x]^V[y]&&(H+=2),
                 _=>I=Q,
@@ -47,36 +47,17 @@ setInterval(_=>{
                     })
                 },
                 _=>R==158?G[V[x]]&&(H+=2):G[V[x]]||(H+=2),
-                _=>{
-                    switch(R){
-                        case 7:
-                            V[x]=B;
-                            break;
-                        case 10:
-                            P=1;
-                            return;
-                        case 21:
-                            B=V[x];
-                            break;
-                        case 24:
-                            D=V[x];
-                            break;
-                        case 30:
-                            I+=V[x];
-                            break;
-                        case 41:
-                            I=5*V[x];
-                            break;
-                        case 51:
-                            K.splice(I,3,...[...(''+V[x]).padStart(3,0)].map(d=>+d));
-                            break;
-                        case 85:
-                            for(i=0;i<=x;)K[I+i]=V[i++];
-                            break;
-                        case 101:
-                            for(i=0;i<=x;)V[i]=K[I+i++]
-                    }
-                },
+                _=>(l={
+                    7:_=>V[x]=B,
+                    10:_=>P=1,
+                    21:_=>B=V[x],
+                    24:_=>D=V[x],
+                    30:_=>I+=V[x],
+                    41:_=>I=5*V[x],
+                    51:_=>K.splice(I,3,...[...(''+V[x]).padStart(3,0)].map(d=>+d)),
+                    85:_=>{for(i=0;i<=x;)K[I+i]=V[i++]},
+                    101:_=>{for(i=0;i<=x;)V[i]=K[I+i++]}
+                },l[R]&&l[R]())
             ][(O&61440)/4096]()
         );
     B&&B--;
