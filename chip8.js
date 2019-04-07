@@ -2,43 +2,43 @@ I=B=D=P=E=S=0;
 F=[];
 G=[];
 H=512;
-V=H*8; // 4096
+W=H*8;
 J=[...'x123qweasdzc4rfv'];
 T=Array(4016).fill(0);
 K=[...'f999f26227f1f8ff1f1f99f11f8f1ff8f9ff1244f9f9ff9f1ff9f99e9e9ef888fe999ef8f8ff8f880'].map(d=>parseInt(d,16)*16).concat(T);
 V=T.slice(0,16);
-M=T.slice(0,2048);
-K.splice(512,0,...[...atob(location.search.slice(1))].map(d=>d.charCodeAt()));
+M=T.slice(0,W/2);
+K.splice(H,0,...[...atob(location.search.slice(1))].map(d=>d.charCodeAt()));
 onkeyup=e=>{i=J.indexOf(e.key);G[i]=0;P&&(V[x]=i,P=0)};
 onkeydown=e=>G[J.indexOf(e.key)]=1;
 setInterval(_=>{
     for(L=9;L--;)
         if(!P){
-            switch(O=K[H]<< 8|K[H+1],x=(O&3840)>>8,y=(O&240)>>4,z=O&15,R=O&255,Q=O&4095,H+=2,O&61440){
+            switch(O=K[H]<< 8|K[H+1],x=(O&3840)>>8,y=(O&240)>>4,z=O&15,R=O&255,Q=O&W-1,H+=2,O&W*15){
                 case 0:
-                    224==O?M=T.slice(0,2048):238==O&&(H=F[--E]);
+                    224==O?M=T.slice(0,W/2):238==O&&(H=F[--E]);
                     break;
-                case 4096:
+                case W:
                     H=Q;
                     break;
-                case 8192:
+                case W*2:
                     F[E]=H,E++,H=Q;
-                case 12288:
+                case W*3:
                     V[x]==R&&(H+=2);
                     break;
-                case 16384:
+                case W*4:
                     V[x]^R&&(H+=2);
                     break;
-                case 20480:
+                case W*5:
                     V[x]==V[y]&&(H+=2);
                     break;
-                case 24576:
+                case W*6:
                     V[x]=R;
                     break;
-                case 28672:
+                case W*7:
                     V[x]=(R+V[x])%256;
                     break;
-                case 32768:
+                case W*8:
                     switch(z) {
                         case 0:
                             V[x]=V[y];
@@ -74,25 +74,25 @@ setInterval(_=>{
                         case 14:
                             V[15]=+(V[x]&128),V[x]*=2,V[x]%=256
                     }break;
-                case 36864:
+                case W*9:
                     V[x]^V[y]&&(H+=2);
                     break;
-                case 40960:
+                case W*10:
                     I=Q;
                     break;
-                case 45056:
+                case W*11:
                     H=Q+V[0];
                     break;
-                case 49152:
+                case W*12:
                     V[x]=(new Date%255)&R;
                     break;
-                case 53248:
+                case W*13:
                     V[15]=0;
                     K.slice(I,z+I).map((a,b)=>{
                         for(j=0;8>j;j++)(a&128)>0&&(x0=V[x]+j,y0=V[y]+b,loc=(0>x0?x0+64:x0%64)+64*(0>y0?y0+32:y0%32),M[loc]^=1,M[loc]||(V[15]=1)),a<<=1
                     });
                     break;
-                case 57344:
+                case W*14:
                     switch(R){
                         case 158:
                             G[V[x]]&&(H+=2);
@@ -100,7 +100,7 @@ setInterval(_=>{
                         case 161:
                             G[V[x]]||(H+=2)
                     }break;
-                case 61440:
+                case W*15:
                     switch(R){
                         case 7:
                             V[x]=B;
