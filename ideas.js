@@ -1,6 +1,8 @@
 // https://github.com/jed/140bytes/wiki/Byte-saving-techniques -->
 // https://codegolf.stackexchange.com/questions/37624/tips-for-golfing-in-ecmascript-6-and-above -->
 //
+// a lot of this stuff is shorter, but makes regpack produce worse results
+//
 // (new TextEncoder).encode('abcd') (RIP edge)
 //
 // I=B=D=P=E=S=0; // could save 1char by moving where another zero is
