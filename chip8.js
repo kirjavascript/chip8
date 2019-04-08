@@ -1,16 +1,14 @@
 F=[];
 G=[];
-H=512;
-J='x123qweasdzc4rfv';
 K=[...'f999f26227f1f8ff1f1f99f11f8f1ff8f9ff1244f9f9ff9f1ff9f99e9e9ef888fe999ef8f8ff8f880'].map(d=>parseInt(d,16)*16).concat(T=Array(4016).fill(I=B=D=P=E=S=0));
 V=T.slice(0,16);
 M=T.slice(0,2048);
-K.splice(H,0,...[...atob(location.search.slice(1))].map(d=>d.charCodeAt()));
-onkeyup=e=>{i=J.indexOf(e.key);G[i]=0;P&&(V[x]=i,P=0)};
-onkeydown=e=>G[J.indexOf(e.key)]=1;
+K.splice(H=512,0,...[...atob(location.search.slice(1))].map(d=>d.charCodeAt()));
+onkeyup=e=>{i='x123qweasdzc4rfv'.indexOf(e.key);G[i]=0;P&&(V[x]=i,P=0)};
+onkeydown=e=>G['x123qweasdzc4rfv'.indexOf(e.key)]=1;
 setInterval(_=>{
     for(L=9;L--;
-        !P&&(
+        P||(
             [
                 _=>224==O?M=T.slice(0,2048):238==O&&(H=F[--E]),
                 _=>H=Q,
@@ -54,11 +52,11 @@ setInterval(_=>{
                     85:_=>{for(i=0;i<=x;)K[I+i]=V[i++]},
                     101:_=>{for(i=0;i<=x;)V[i]=K[I+i++]}
                 }[R]())
-            ][(O&61440)/4096]()
+            ][O>>12]()
         )
     )
         O=K[H]<<
-        8|K[H+1],x=(O&3840)>>8,y=(O&240)>>4,z=O&15,R=O&255,Q=O&4095,H+=2;
+        8|K[H+1],x=(O>>8)&15,y=(O>>4)&15,z=O&15,R=O&255,Q=O&4095,H+=2;
     c=a=>a+a&&[a.splice(0,64).map(d=>d?'░░':'██').join``,...c(a)];
     document.body.innerHTML='<pre>'+c([...M]).join`\n`;
     B&&B--;
