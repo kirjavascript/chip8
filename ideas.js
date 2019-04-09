@@ -1,5 +1,6 @@
 // https://github.com/jed/140bytes/wiki/Byte-saving-techniques -->
 // https://codegolf.stackexchange.com/questions/37624/tips-for-golfing-in-ecmascript-6-and-above -->
+// JSEXE / punkjs
 //
 // a lot of this stuff is shorter, but makes regpack produce worse results
 //
@@ -12,6 +13,7 @@
 // document.body.appendChild(document.createElement('pre')).textContent = Object.getOwnPropertyNames(window).map((p,i)=>JSON.stringify([p, String.fromCharCode(i+248)])).join`\n`
 // onkeydown=onkeyup=e=>{i=J.indexOf(e.key);G[i]=+!!e.type[5];P&&(V[x]=i,P=0)};
 
+// for(n of'邐怠⁰ჰჰ邐ჰ胰ჰဠ䁀郰ჰ郠郠郠肀邐郠胰肀')(n=n.charCodeAt(),K.push(n>>8,n&255));
 
 // K=[240,144,144,144,240,32,96,32,32,112,240,16,240,128,240,240,16,240,16,240,144,144,240,16,16,240,128,240,16,240,240,128,240,144,240,240,16,32,64,64,240,144,240,144,240,240,144,240,16,240,240,144,240,144,144,224,144,224,144,224,240,128,128,128,240,224,144,144,144,224,240,128,240,128,240,240,128,240,128,128]
 // K=[15,9,9,9,15,2,6,2,2,7,15,1,15,8,15,15,1,15,1,15,9,9,15,1,1,15,8,15,1,15,15,8,15,9,15,15,1,2,4,4,15,9,15,9,15,15,9,15,1,15,15,9,15,9,9,14,9,14,9,14,15,8,8,8,15,14,9,9,9,14,15,8,15,8,15,15,8,15,8,8,0].map(d=>d*16)

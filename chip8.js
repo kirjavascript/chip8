@@ -1,16 +1,16 @@
-K=[...'f999f26227f1f8ff1f1f99f11f8f1ff8f9ff1244f9f9ff9f1ff9f99e9e9ef888fe999ef8f8ff8f880'].map(d=>parseInt(d,16)*16).concat(T=Array(4016).fill(I=B=D=P=E=S=0));
+K=[...'f999f26227f1f8ff1f1f99f11f8f1ff8f9ff1244f9f9ff9f1ff9f99e9e9ef888fe999ef8f8ff8f880'].map(d=>parseInt(d,16)*16).concat(T=Array(4016).fill(S=B=D=P=E=I=0));
 V=T.slice(0,16);
 M=T.slice(0,2048);
 K.splice(H=512,0,...[...atob(location.search.slice(1))].map(d=>d.charCodeAt()));
-F=onkeyup=e=>{i='x123qweasdzc4rfv'.indexOf(e.key);G[i]=0;P&&(V[x]=i,P=0)};
-G=onkeydown=e=>G['x123qweasdzc4rfv'.indexOf(e.key)]=1;
+F=onkeyup=_=>{i='x123qweasdzc4rfv'.indexOf(_.key);G[i]=0;P&&(V[x]=i,P=0)};
+G=onkeydown=_=>G['x123qweasdzc4rfv'.indexOf(_.key)]=1;
 setInterval(_=>{
     for(L=9;L--;
         P||(
             [
                 _=>224==O?M=T.slice(0,2048):238==O&&(H=F[--E]),
                 _=>H=Q,
-                _=>(F[E]=H,E++,H=Q),
+                _=>(F[E++]=H,H=Q),
                 _=>V[x]==R&&(H+=2),
                 _=>V[x]^R&&(H+=2),
                 _=>V[x]==V[y]&&(H+=2),
@@ -55,7 +55,7 @@ setInterval(_=>{
     )
         O=K[H]<<
         8|K[H+1],x=(O>>8)&15,y=(O>>4)&15,z=O&15,R=O&255,Q=O&4095,H+=2;
-    c=a=>a+a&&[a.splice(0,64).map(d=>d?'░░':'██').join``,...c(a)];
+    c=_=>_+_&&[_.splice(0,64).map(d=>d?'░░':'██').join``,...c(_)];
     document.body.innerHTML='<pre>'+c([...M]).join`\n`;
     B&&B--;
     D?(D--,S||(A=new AudioContext,S=A.createOscillator(),S.connect(A.destination),S.start())):S&&(S.stop(),S=0)
