@@ -1,3 +1,4 @@
+
 // https://github.com/jed/140bytes/wiki/Byte-saving-techniques -->
 // https://codegolf.stackexchange.com/questions/37624/tips-for-golfing-in-ecmascript-6-and-above -->
 // JSEXE / punkjs
@@ -8,6 +9,12 @@
 //
 // I=B=D=P=E=S=0; // could save 1char by moving where another zero is
 // location.search -> location.hash
+
+// remapping lookup:
+// [ 7, 10, 21, 24, 30, 41, 51, 85, 101, ]
+// [ 4, 7, 0, 3, 9, 2, 12, 10, 8 ]
+// [ 0, 2, 3, 4, 7, 8, 9, 10, 12 ]
+// console.log(q)
 
 // Object.getOwnPropertyNames(window).map((p,i)=>window[String.fromCharCode(i+248)]=window[p])
 // document.body.appendChild(document.createElement('pre')).textContent = Object.getOwnPropertyNames(window).map((p,i)=>JSON.stringify([p, String.fromCharCode(i+248)])).join`\n`
@@ -68,3 +75,43 @@
 
 // document.write(JSON.stringify(K))
 //
+//
+            // eval([
+            //     'z?H=F[--E]:T.slice(0,2048)',
+            //     'H=Q',
+            //     'F[E++]=H;H=Q',
+            //     'V[x]==R&&(H+=2)',
+            //     'V[x]^R&&(H+=2)',
+            //     'V[x]==V[y]&&(H+=2)',
+            //     'V[x]=R',
+            //     'V[x]=R+V[x]',
+            //     [
+            //         'V[x]=V[y]',
+            //         'V[x]|=V[y]',
+            //         'V[x]&=V[y]',
+            //         'V[x]^=V[y]',
+            //         'V[15]=+((V[x]+=V[y])>255)',
+            //         'V[15]=+(V[x]>V[y]);V[x]-=V[y]',
+            //         'V[15]=V[x]&1;V[x]/=2',
+            //         'V[15]=+(V[y]>V[x]);V[x]=V[y]-V[x]',
+            //         ,,,,,,
+            //         'V[15]=+(V[x]&128);V[x]*=2'
+            //     ][z],
+            //     'V[x]^V[y]&&(H+=2)',
+            //     'I=Q',
+            //     'H=Q+V[0]',
+            //     'V[x]=(new Date%255)&R',
+            //     'V[15]=0;K.slice(I,z+I).map((a,b)=>{for(j=0;8>j;j++)(a&128)>0&&(x0=V[x]+j,y0=V[y]+b,loc=(0>x0?x0+64:x0%64)+64*(0>y0?y0+32:y0%32),M[loc]^=1,M[loc]||(V[15]=1)),a<<=1})',
+            //     'R==158?G[V[x]]&&(H+=2):G[V[x]]||(H+=2)',
+            //     ({
+            //         7:'V[x]=B',
+            //         10:'P=1',
+            //         21:'B=V[x]',
+            //         24:'D=V[x];A=new AudioContext,S=A.createOscillator``,S.connect(A.destination),S.start``',
+            //         30:'I+=V[x]',
+            //         41:'I=5*V[x]',
+            //         51:'K.splice(I,3,...[...(""+V[x]).padStart(3,0)].map(d=>+d))',
+            //         85:'for(i=0;i<=x;)K[I+i]=V[i++]',
+            //         101:'for(i=0;i<=x;)V[i]=K[I+i++]'
+            //     }[R])
+            // ][O>>12])

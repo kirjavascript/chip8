@@ -39,17 +39,20 @@ setInterval(_=>{
                     })
                 },
                 _=>R==158?G[V[x]]&&(H+=2):G[V[x]]||(H+=2),
-                _=>({
-                    7:_=>V[x]=B,
-                    10:_=>P=1,
-                    21:_=>B=V[x],
-                    24:_=>{D=V[x];A=new AudioContext,S=A.createOscillator``,S.connect(A.destination),S.start``},
-                    30:_=>I+=V[x],
-                    41:_=>I=5*V[x],
-                    51:_=>K.splice(I,3,...[...(''+V[x]).padStart(3,0)].map(d=>+d)),
-                    85:_=>{for(i=0;i<=x;)K[I+i]=V[i++]},
-                    101:_=>{for(i=0;i<=x;)V[i]=K[I+i++]}
-                }[R]``)
+                _=>[
+                    _=>B=V[x],
+                    ,
+                    _=>I=5*V[x],
+                    _=>{D=V[x];A=new AudioContext,S=A.createOscillator``,S.connect(A.destination),S.start``},
+                    _=>V[x]=B,
+                    ,,
+                    _=>P=1,
+                    _=>{for(i=0;i<=x;)V[i]=K[I+i++]},
+                    _=>I+=V[x],
+                    _=>{for(i=0;i<=x;)K[I+i]=V[i++]},
+                    ,
+                    _=>K.splice(I,3,...[...(''+V[x]).padStart(3,0)].map(d=>+d))
+                ][R%18-3]``
             ][O>>12]``
         )
     )
