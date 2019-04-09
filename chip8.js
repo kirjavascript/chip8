@@ -1,5 +1,5 @@
 K=[...'f999f26227f1f8ff1f1f99f11f8f1ff8f9ff1244f9f9ff9f1ff9f99e9e9ef888fe999ef8f8ff8f880'].map(d=>parseInt(d,16)*16).concat(T=Array(4016).fill(S=B=D=P=E=I=0));
-V=T.slice(0,16);
+V=new Uint8Array(16);
 M=T.slice(0,2048);
 K.splice(H=512,0,...[...atob(location.search.slice(1))].map(d=>d.charCodeAt``));
 F=onkeyup=_=>{i='x123qweasdzc4rfv'.indexOf(_.key);G[i]=0;P&&(V[x]=i,P=0)};
@@ -15,18 +15,18 @@ setInterval(_=>{
                 _=>V[x]^R&&(H+=2),
                 _=>V[x]==V[y]&&(H+=2),
                 _=>V[x]=R,
-                _=>V[x]=(R+V[x])%256,
+                _=>V[x]=R+V[x],
                 _=>[
                     _=>V[x]=V[y],
                     _=>V[x]|=V[y],
                     _=>V[x]&=V[y],
                     _=>V[x]^=V[y],
-                    _=>(V[x]+=V[y],V[15]=+(V[x]>255),V[x]%=256),
-                    _=>(V[15]=+(V[x]>V[y]),V[x]-=V[y],0>V[x]&&(V[x]+=256)),
-                    _=>(V[15]=V[x]&1,V[x]>>=1),
-                    _=>(V[15]=+(V[y]>V[x]),V[x]=V[y]-V[x],0>V[x]&&(V[x]+=256)),
+                    _=>V[15]=+((V[x]+=V[y])>255),
+                    _=>(V[15]=+(V[x]>V[y]),V[x]-=V[y]),
+                    _=>(V[15]=V[x]&1,V[x]/=2),
+                    _=>(V[15]=+(V[y]>V[x]),V[x]=V[y]-V[x]),
                     ,,,,,,
-                    _=>(V[15]=+(V[x]&128),V[x]*=2,V[x]%=256)
+                    _=>(V[15]=+(V[x]&128),V[x]*=2)
                 ][z]``,
                 _=>V[x]^V[y]&&(H+=2),
                 _=>I=Q,
